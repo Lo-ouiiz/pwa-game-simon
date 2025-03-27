@@ -8,9 +8,36 @@ export default defineConfig({
     VitePWA({ 
       registerType: 'autoUpdate',
       manifest: {
-        name: 'My App',
-        background_color: "#ff0000"
-      }
+        orientation: "portrait",
+
+        start_url: "/",
+        name: "PWA Simon Game",
+        short_name: "Simon Game",
+        description: "A Simon game.",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        display: "standalone",
+        icons: [
+          {
+            purpose: "any",
+            sizes: "512x512",
+            src: "icon512.png",
+            type: "image/png"
+          },
+          {
+            purpose: "any",
+            sizes: "192x192",
+            src: "icon192.png",
+            type: "image/png"
+          },
+          {
+            purpose: "any",
+            sizes: "144x144",
+            src: "icon144.png",
+            type: "image/png"
+          }
+        ]
+      },
     })
   ]
 })
