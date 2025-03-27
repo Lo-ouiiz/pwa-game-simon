@@ -13,4 +13,14 @@ declare global {
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent;
   }
+
+  interface Navigator {
+    userAgentData?: NavigatorUAData;
+}
+}
+
+interface NavigatorUAData {
+    brands: { brand: string; version: string }[];
+    mobile: boolean;
+    platform: string;
 }

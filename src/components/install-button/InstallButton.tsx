@@ -6,9 +6,6 @@ const InstallButton: React.FC = () => {
   const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
   const [promptInstall, setPromptInstall] = useState<BeforeInstallPromptEvent | null>(null);
 
-  console.log(navigator.userAgent);
-  console.log(navigator.vendor);
-
   useEffect(() => {
     const handler = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
@@ -17,11 +14,17 @@ const InstallButton: React.FC = () => {
 
     window.addEventListener('beforeinstallprompt', handler);
 
-    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    let isChrome = false;
+
+    if (navigator.userAgentData?.brands) {
+        const brands = navigator.userAgentData.brands.map(b => b.brand);
+        isChrome = brands.includes("Google Chrome");
+    }
     
     if (isChrome) {
       setSupportsPWA(true);
     }
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
     };
@@ -42,7 +45,7 @@ const InstallButton: React.FC = () => {
 
   return supportsPWA ? (
     <div className='root'>
-      <p>Installez l'application web GoodHealth sur votre appareil dès maintenant en cliquant sur le bouton ci-dessous.</p>
+      <p>Installez l'application Simon sur votre appareil dès maintenant en cliquant sur le bouton ci-dessous.</p>
       <div className='buttonInstall'>
         <button onClick={handleClick}>Installer l'application</button>
       </div>
