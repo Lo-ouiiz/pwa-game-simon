@@ -87,18 +87,17 @@ function Simon() {
       if (colorsSequence[colorIndex] === color) {
         setColorIndex(colorIndex + 1);
       } else {
-        const text = `Votre score : ${gameTurnWon} Pour rejouer, cliquez sur "Démarrer une partie"`;
+        setIsGameRunning(false);
+        const text = `Ton score est de : ${gameTurnWon} Pour rejouer, clique sur "Démarrer une partie"`;
         if (notificationGranted) {
-          try {
-            new Notification("Perdu !", { body: text });
-          } catch (error) {
-            console.error("Erreur lors de l'envoi de la notification", error);
-            alert('Perdu ! ' + text);
-          }
+          navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification("Perdu !", {
+              body: text,
+            });
+          });
         } else {
           alert('Perdu ! ' + text);
         }
-        setIsGameRunning(false);
       }
     },
     [isPlayerTurn, colorIndex, colorsSequence, notificationGranted, gameTurnWon]
@@ -115,7 +114,13 @@ function Simon() {
         <Tile color='green' active={activeColor === 'green'} onClick={handleClickButton} />
         <Tile color='yellow' active={activeColor === 'yellow'} onClick={handleClickButton} />
       </div>
-      {!isGameRunning && <button className='startButton' onClick={startSimon}>Démarrer une partie</button>}
+      {isGameRunning ? (isPlayerTurn ? (
+        <p className='textGame'>A toi de jouer, reproduis la séquence</p>
+      ) : (
+        <p className='textGame'>Observe bien la séquence</p>
+      )) : (
+        <button className='startButton' onClick={startSimon}>Démarrer une partie</button>
+      )}
     </div>
   );
 }
