@@ -7,14 +7,19 @@ export type Color = 'red' | 'blue' | 'green' | 'yellow';
 const colors: Color[] = ['red', 'blue', 'green', 'yellow'];
 
 function Simon() {
+  const [notificationGranted, setNotificationGranted] = useState(false);
+
   const [colorsSequence, setColorsSequence] = useState<Color[]>([]);
   const [colorIndex, setColorIndex] = useState(0);
-  const [isPlayerTurn, setIsPlayerTurn] = useState(false);
   const [activeColor, setActiveColor] = useState<Color | null>(null);
+
   const [isGameRunning, setIsGameRunning] = useState(false);
+  const [isPlayerTurn, setIsPlayerTurn] = useState(false);
+  const [gameTurnWon, setGameTurnWon] = useState(0);
 
   const startSimon = useCallback(() => {
     setIsGameRunning(true);
+    setGameTurnWon(0);
     const firstColor = colors[Math.floor(Math.random() * colors.length)];
     setColorsSequence([firstColor]);
     setColorIndex(0);
@@ -22,8 +27,19 @@ function Simon() {
   }, []);
 
   useEffect(() => {
+    if (!("Notification" in window)) {
+      console.log("This browser does not support notifications.");
+      return;
+    }
+    Notification.requestPermission().then((result) => {
+      if (result === 'granted') {
+        setNotificationGranted(true);
+      }
+    });
+  }, []);  
+
+  useEffect(() => {
     if (!isPlayerTurn && colorsSequence.length > 0) {
-      console.log('Machine');
       let index = 0;
 
       const showColor = () => {
@@ -41,7 +57,6 @@ function Simon() {
           }, 1000);
         } else {
           setIsPlayerTurn(true);
-          console.log('Au joueur');
         }
       };
 
@@ -52,7 +67,7 @@ function Simon() {
   useEffect(() => {
     if (colorsSequence.length > 0) {
       if (colorIndex === colorsSequence.length) {
-        console.log('ajout couleur')
+        setGameTurnWon(gameTurnWon + 1);
         setColorsSequence(prevSequence => [
           ...prevSequence,
           colors[Math.floor(Math.random() * colors.length)],
@@ -63,7 +78,7 @@ function Simon() {
         }, 2000);
       }
     }
-  }, [colorsSequence, colorIndex]);  
+  }, [colorsSequence, colorIndex, gameTurnWon]);  
 
   const handleClickButton = useCallback(
     (color: Color) => {
@@ -71,13 +86,17 @@ function Simon() {
 
       if (colorsSequence[colorIndex] === color) {
         setColorIndex(colorIndex + 1);
-        console.log('augmentation index', colorIndex + 1);
       } else {
-        alert('Perdu !');
+        const text = `Votre score : ${gameTurnWon} Pour rejouer, cliquez sur "Démarrer une partie"`;
+        if (notificationGranted) {
+          new Notification("Perdu !", { body: text });
+        } else {
+          alert('Perdu ! ' + text);
+        }
         setIsGameRunning(false);
       }
     },
-    [isPlayerTurn, colorIndex, colorsSequence]
+    [isPlayerTurn, colorIndex, colorsSequence, notificationGranted, gameTurnWon]
   );
 
   return (
