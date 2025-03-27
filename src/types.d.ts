@@ -16,6 +16,7 @@ declare global {
 
   interface Navigator {
     userAgentData?: NavigatorUAData;
+    standalone?: boolean;
 }
 }
 

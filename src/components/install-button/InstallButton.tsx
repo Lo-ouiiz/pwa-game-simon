@@ -5,6 +5,7 @@ import './InstallButton.scss';
 const InstallButton: React.FC = () => {
   const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
   const [promptInstall, setPromptInstall] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isInstalled, setIsInstalled] = useState<boolean>(false);
 
   useEffect(() => {
     const handler = (e: BeforeInstallPromptEvent) => {
@@ -15,15 +16,17 @@ const InstallButton: React.FC = () => {
     window.addEventListener('beforeinstallprompt', handler);
 
     let isChrome = false;
-
     if (navigator.userAgentData?.brands) {
-        const brands = navigator.userAgentData.brands.map(b => b.brand);
-        isChrome = brands.includes("Google Chrome");
+      const brands = navigator.userAgentData.brands.map(b => b.brand);
+      isChrome = brands.includes("Google Chrome");
     }
-    
+
     if (isChrome) {
       setSupportsPWA(true);
     }
+
+    const isAppInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    setIsInstalled(isAppInstalled);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
@@ -42,6 +45,10 @@ const InstallButton: React.FC = () => {
       setPromptInstall(null);
     }
   };
+
+  if (isInstalled) {
+    return null;
+  }
 
   return supportsPWA ? (
     <div className='root'>
