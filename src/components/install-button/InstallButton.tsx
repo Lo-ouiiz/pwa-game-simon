@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './installButton.scss';
 import { BeforeInstallPromptEvent } from '../../types';
+import './InstallButton.scss';
 
 const InstallButton: React.FC = () => {
   const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
