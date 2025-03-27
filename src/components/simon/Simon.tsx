@@ -29,6 +29,7 @@ function Simon() {
       const showColor = () => {
         if (index < colorsSequence.length) {
           setActiveColor(colorsSequence[index]);
+          navigator.vibrate(500);
 
           setTimeout(() => {
             setActiveColor(null);
