@@ -6,7 +6,7 @@ As part of my final project for my **first year of master's degree**, I develope
 
 The Simon Game is a memory game where the user has to follow a sequence of colors that progressively becomes more complex. The goal is to correctly reproduce the sequence without making any mistakes, with increasing levels of difficulty.
 
-## 🎮 Features  
+## ⚙️ Features  
 - **Color Sequences**: The game generates a random sequence of colors that the user has to memorize and repeat.
 - **Difficulty Levels**: The more the user successfully reproduces the sequences, the harder the game becomes.
 - **Local Notification**: A local notification is displayed when the user loses the game, alerting them of the result.

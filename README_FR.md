@@ -4,10 +4,9 @@ Dans le cadre de mon projet final de **première année de master**, j'ai dével
 
 Le jeu Simon est un jeu de mémoire où l'utilisateur doit suivre une séquence de couleurs qui devient progressivement de plus en plus complexe. L'objectif est de reproduire correctement cette séquence sans erreur, avec des niveaux de difficulté croissants.
 
-## 🎮 Fonctionnalités  
+## ⚙️ Fonctionnalités  
 - **Séquences de couleurs** : Le jeu génère une séquence aléatoire de couleurs que l'utilisateur doit mémoriser et répéter.
 - **Niveaux de difficulté** : Plus l'utilisateur réussit à reproduire les séquences, plus le jeu devient difficile.
-- **Interface intuitive** : L'interface est simple et conviviale, permettant aux utilisateurs de jouer facilement sur tous leurs appareils.
 - **Notification locale** : Une notification locale est affichée lorsque l'utilisateur perd la partie, l'alertant du résultat.
 - **Effet de vibration** : Une vibration se déclenche lorsque la machine joue la séquence de couleurs, renforçant l'expérience utilisateur avec un retour haptique.
 
