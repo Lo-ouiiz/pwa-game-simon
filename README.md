@@ -1,54 +1,28 @@
-# React + TypeScript + Vite
+# Simon Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+*[Read in French 🇫🇷](README_FR.md)*
 
-Currently, two official plugins are available:
+As part of my final project for my **first year of master's degree**, I developed a **Simon Game** as a **Progressive Web App (PWA)** using **React JS**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Simon Game is a memory game where the user has to follow a sequence of colors that progressively becomes more complex. The goal is to correctly reproduce the sequence without making any mistakes, with increasing levels of difficulty.
 
-## Expanding the ESLint configuration
+## 🎮 Features  
+- **Color Sequences**: The game generates a random sequence of colors that the user has to memorize and repeat.
+- **Difficulty Levels**: The more the user successfully reproduces the sequences, the harder the game becomes.
+- **Local Notification**: A local notification is displayed when the user loses the game, alerting them of the result.
+- **Vibration Effect**: A vibration occurs when the machine plays the color sequence, enhancing the user experience with haptic feedback.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This project allowed me to apply my **web development skills** while creating an engaging and interactive game.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📅 Project Timeline  
+This project was completed in **March 2025**, during my first year of master's degree.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Demo  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+[View the demo](https://pwa-simon-game.vercel.app/)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🛠️ Technologies Used  
+
+- **React**  
+- **Vite**  
+- **PWA (Progressive Web App)**  
