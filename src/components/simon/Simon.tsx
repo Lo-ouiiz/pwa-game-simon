@@ -9,18 +9,20 @@ const colors: Color[] = ['red', 'blue', 'green', 'yellow'];
 function Simon() {
   const [colorsSequence, setColorsSequence] = useState<Color[]>([]);
   const [colorIndex, setColorIndex] = useState(0);
-  const [isPlayerTime, setIsPlayerTime] = useState(false);
+  const [isPlayerTurn, setIsPlayerTurn] = useState(false);
   const [activeColor, setActiveColor] = useState<Color | null>(null);
+  const [isGameRunning, setIsGameRunning] = useState(false);
 
   const startSimon = useCallback(() => {
+    setIsGameRunning(true);
     const firstColor = colors[Math.floor(Math.random() * colors.length)];
     setColorsSequence([firstColor]);
     setColorIndex(0);
-    setIsPlayerTime(false);
+    setIsPlayerTurn(false);
   }, []);
 
   useEffect(() => {
-    if (!isPlayerTime && colorsSequence.length > 0) {
+    if (!isPlayerTurn && colorsSequence.length > 0) {
       console.log('Machine');
       let index = 0;
 
@@ -37,14 +39,14 @@ function Simon() {
             showColor();
           }, 1000);
         } else {
-          setIsPlayerTime(true);
+          setIsPlayerTurn(true);
           console.log('Au joueur');
         }
       };
 
       showColor();
     }
-  }, [colorsSequence, isPlayerTime]);
+  }, [colorsSequence, isPlayerTurn]);
 
   useEffect(() => {
     if (colorsSequence.length > 0) {
@@ -56,7 +58,7 @@ function Simon() {
         ]);
         setTimeout(() => {
           setColorIndex(0);
-          setIsPlayerTime(false);
+          setIsPlayerTurn(false);
         }, 2000);
       }
     }
@@ -64,22 +66,22 @@ function Simon() {
 
   const handleClickButton = useCallback(
     (color: Color) => {
-      if (!isPlayerTime) return;
+      if (!isPlayerTurn) return;
 
       if (colorsSequence[colorIndex] === color) {
         setColorIndex(colorIndex + 1);
         console.log('augmentation index', colorIndex + 1);
       } else {
         alert('Perdu !');
-        startSimon();
+        setIsGameRunning(false);
       }
     },
-    [isPlayerTime, colorIndex, colorsSequence, startSimon]
+    [isPlayerTurn, colorIndex, colorsSequence]
   );
 
   return (
     <div className='mainContainer'>
-      <button onClick={startSimon}>Démarrer</button>
+      <h1>Jeu du Simon</h1>
       <div className='containerButtons'>
         <Tile color='red' active={activeColor === 'red'} onClick={handleClickButton} />
         <Tile color='blue' active={activeColor === 'blue'} onClick={handleClickButton} />
@@ -88,6 +90,7 @@ function Simon() {
         <Tile color='green' active={activeColor === 'green'} onClick={handleClickButton} />
         <Tile color='yellow' active={activeColor === 'yellow'} onClick={handleClickButton} />
       </div>
+      {!isGameRunning && <button className='startButton' onClick={startSimon}>Démarrer une partie</button>}
     </div>
   );
 }
