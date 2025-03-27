@@ -89,7 +89,12 @@ function Simon() {
       } else {
         const text = `Votre score : ${gameTurnWon} Pour rejouer, cliquez sur "Démarrer une partie"`;
         if (notificationGranted) {
-          new Notification("Perdu !", { body: text });
+          try {
+            new Notification("Perdu !", { body: text });
+          } catch (error) {
+            console.error("Erreur lors de l'envoi de la notification", error);
+            alert('Perdu ! ' + text);
+          }
         } else {
           alert('Perdu ! ' + text);
         }
