@@ -1,10 +1,11 @@
+import Simon from './components/simon/Simon'
 import './App.scss'
 
 function App() {
 
   return (
     <>
-      test
+      <Simon />
     </>
   )
 }

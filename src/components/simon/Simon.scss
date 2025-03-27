@@ -1,0 +1,52 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .containerButtons {
+    display: flex;
+    gap: 10px;
+
+  }
+}
+
+.button {
+  width: 120px;
+  height: 120px;
+}
+
+.red {
+  background-color: darken(#e22a2a, 20%);
+  border-radius: 199px 10px 10px 10px;
+
+  &.active {
+    background-color: #e22a2a;
+  }
+}
+
+.blue {
+  background-color: darken(#21a892, 20%);
+  border-radius: 10px 199px 10px 10px;
+
+  &.active {
+    background-color: #21a892;
+  }
+}
+
+.green {
+  background-color: darken(#44ac1b, 20%);
+  border-radius: 10px 10px 10px 199px;
+  
+  &.active {
+    background-color: #44ac1b;
+  }
+}
+
+.yellow {
+  background-color: darken(#ffe920, 20%);
+  border-radius: 10px 10px 199px 10px;
+  
+  &.active {
+    background-color: #ffe920;
+  }
+}
