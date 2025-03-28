@@ -7,7 +7,6 @@
   .containerButtons {
     display: flex;
     gap: 10px;
-
   }
 
   .startButton {
@@ -36,7 +35,7 @@
 }
 
 .red {
-  background-color: darken(#e22a2a, 20%);
+  background-color: #921414;
   border-radius: 199px 10px 10px 10px;
 
   &.active {
@@ -45,7 +44,7 @@
 }
 
 .blue {
-  background-color: darken(#21a892, 20%);
+  background-color: #105348;
   border-radius: 10px 199px 10px 10px;
 
   &.active {
@@ -54,18 +53,18 @@
 }
 
 .green {
-  background-color: darken(#44ac1b, 20%);
+  background-color: #21540d;
   border-radius: 10px 10px 10px 199px;
-  
+
   &.active {
     background-color: #44ac1b;
   }
 }
 
 .yellow {
-  background-color: darken(#ffe920, 20%);
+  background-color: #b9a700;
   border-radius: 10px 10px 199px 10px;
-  
+
   &.active {
     background-color: #ffe920;
   }
