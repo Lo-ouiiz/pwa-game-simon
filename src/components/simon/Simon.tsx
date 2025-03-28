@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
-import './Simon.scss';
-import Tile from './tile/Tile';
+import { useCallback, useEffect, useState } from "react";
+import "./Simon.scss";
+import Tile from "./tile/Tile";
 
-export type Color = 'red' | 'blue' | 'green' | 'yellow';
+export type Color = "red" | "blue" | "green" | "yellow";
 
-const colors: Color[] = ['red', 'blue', 'green', 'yellow'];
+const colors: Color[] = ["red", "blue", "green", "yellow"];
 
 function Simon() {
   const [notificationGranted, setNotificationGranted] = useState(false);
@@ -32,11 +32,11 @@ function Simon() {
       return;
     }
     Notification.requestPermission().then((result) => {
-      if (result === 'granted') {
+      if (result === "granted") {
         setNotificationGranted(true);
       }
     });
-  }, []);  
+  }, []);
 
   useEffect(() => {
     if (!isPlayerTurn && colorsSequence.length > 0) {
@@ -68,7 +68,7 @@ function Simon() {
     if (colorsSequence.length > 0) {
       if (colorIndex === colorsSequence.length) {
         setGameTurnWon(gameTurnWon + 1);
-        setColorsSequence(prevSequence => [
+        setColorsSequence((prevSequence) => [
           ...prevSequence,
           colors[Math.floor(Math.random() * colors.length)],
         ]);
@@ -78,11 +78,11 @@ function Simon() {
         }, 2000);
       }
     }
-  }, [colorsSequence, colorIndex, gameTurnWon]);  
+  }, [colorsSequence, colorIndex, gameTurnWon]);
 
   const handleClickButton = useCallback(
     (color: Color) => {
-      if (!isPlayerTurn) return;
+      navigator.vibrate(500);
 
       if (colorsSequence[colorIndex] === color) {
         setColorIndex(colorIndex + 1);
@@ -96,30 +96,58 @@ function Simon() {
             });
           });
         } else {
-          alert('Perdu ! ' + text);
+          alert("Perdu ! " + text);
         }
       }
     },
-    [isPlayerTurn, colorIndex, colorsSequence, notificationGranted, gameTurnWon]
+    [colorIndex, colorsSequence, notificationGranted, gameTurnWon]
   );
 
   return (
-    <div className='mainContainer'>
+    <div className="mainContainer">
       <h1>Jeu du Simon</h1>
-      <div className='containerButtons'>
-        <Tile color='red' active={activeColor === 'red'} onClick={handleClickButton} />
-        <Tile color='blue' active={activeColor === 'blue'} onClick={handleClickButton} />
+      <div className="containerButtons">
+        <Tile
+          color="red"
+          active={activeColor === "red"}
+          isGameRunning={isGameRunning}
+          isPlayerTurn={isPlayerTurn}
+          onClick={handleClickButton}
+        />
+        <Tile
+          color="blue"
+          active={activeColor === "blue"}
+          isGameRunning={isGameRunning}
+          isPlayerTurn={isPlayerTurn}
+          onClick={handleClickButton}
+        />
       </div>
-      <div className='containerButtons'>
-        <Tile color='green' active={activeColor === 'green'} onClick={handleClickButton} />
-        <Tile color='yellow' active={activeColor === 'yellow'} onClick={handleClickButton} />
+      <div className="containerButtons">
+        <Tile
+          color="green"
+          active={activeColor === "green"}
+          isGameRunning={isGameRunning}
+          isPlayerTurn={isPlayerTurn}
+          onClick={handleClickButton}
+        />
+        <Tile
+          color="yellow"
+          active={activeColor === "yellow"}
+          isGameRunning={isGameRunning}
+          isPlayerTurn={isPlayerTurn}
+          onClick={handleClickButton}
+        />
       </div>
-      {isGameRunning ? (isPlayerTurn ? (
-        <p className='textGame'>A toi de jouer, reproduis la séquence</p>
+      {isGameRunning ? (
+        isPlayerTurn ? (
+          <p className="textGame">A toi de jouer, reproduis la séquence</p>
+        ) : (
+          <p className="textGame">Observe bien la séquence</p>
+        )
       ) : (
-        <p className='textGame'>Observe bien la séquence</p>
-      )) : (
-        <button className='startButton' onClick={startSimon}>Démarrer une partie</button>
+        <button className="startButton" onClick={startSimon}>
+          Démarrer une partie
+        </button>
       )}
     </div>
   );
